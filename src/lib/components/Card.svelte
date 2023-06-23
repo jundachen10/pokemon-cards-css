@@ -1,5 +1,5 @@
 <script>
-  import { spring } from "svelte/motion";
+  import { spring } from "svelte/motion";//can use react spring
   import { onMount } from "svelte";
   import { activeCard } from "../stores/activeCard.js";
   import { orientation, resetBaseOrientation } from "../stores/orientation.js";
@@ -48,6 +48,9 @@
   let interacting = false;
   let firstPop = true;
   let loading = true;
+
+ // checks if the doucment is visible in the browser and saving it as a var
+ // if doc is vis then this value is assigned true
   let isVisible = document.visibilityState === "visible";
 
   const springInteractSettings = { stiffness: 0.066, damping: 0.25 };
