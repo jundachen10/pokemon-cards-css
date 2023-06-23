@@ -13,16 +13,16 @@
   export let types = "";
   export let subtypes = "basic";
   export let supertype = "pokémon";
-  export let rarity = "common";
+  export let rarity = "common";//props for cards
 
   // image props
   export let img = "";
   export let back = "https://tcg.pokemon.com/assets/img/global/tcg-card-back-2x.jpg";
   export let foil = "";
-  export let mask = "";
+  export let mask = "";//empty URL props for the cards
 
   // context/environment props
-  export let showcase = false;
+  export let showcase = false;//initial bool of the showcase var
 
   const randomSeed = {
     x: Math.random(),
@@ -62,26 +62,29 @@
   let springTranslate = spring({ x: 0, y: 0 }, springPopoverSettings);
   let springScale = spring(1, springPopoverSettings);
 
+  //showcase empty varibales to be stored possibly related to timing
   let showcaseInterval;
   let showcaseTimerStart;
   let showcaseTimerEnd;
   let showcaseRunning = showcase;
+  //If the showcase prop is later updated by the parent component, it will not automatically update the value of the showcaseRunning variable. They are independent variables after the initial assignment.
 
+  //defines this function endShowcase
   const endShowcase = () => {
-    if (showcaseRunning) {
+    if (showcaseRunning) {//checks the value of showcaseRunning above, if true then
       clearTimeout(showcaseTimerEnd);
       clearTimeout(showcaseTimerStart);
       clearInterval(showcaseInterval);
-      showcaseRunning = false;
-    }
-  };
+      showcaseRunning = false;//makes showcase false, showcase no longer running
+    }//purpose of func to stop and clean up ongoing showcase-related timers/intervals
+  };//resets the showcaseRunning var, also this has to be a reactive variable for it to work outside this function
 
   const interact = (e) => {
     
     endShowcase();
 
-    if (!isVisible) {
-      return (interacting = false);
+    if (!isVisible) {//if not visible on
+      return (interacting = false);//if false then sets interacting to false and exits the interact(e) function
     }
     
     // prevent other background cards being interacted with
