@@ -79,22 +79,22 @@
     }//purpose of func to stop and clean up ongoing showcase-related timers/intervals
   };//resets the showcaseRunning var, also this has to be a reactive variable for it to work outside this function
 
-  const interact = (e) => {
+  const interact = (e) => {//interaction captured by event 'e' triggers end of showcase function by calling endshowcase()
     
     endShowcase();
 
-    if (!isVisible) {//if not visible on
+    if (!isVisible) {//if not visible on browser (false) then do below,
       return (interacting = false);//if false then sets interacting to false and exits the interact(e) function
     }
     
     // prevent other background cards being interacted with
-    if ($activeCard && $activeCard !== thisCard) {
+    if ($activeCard && $activeCard !== thisCard) {//this card current element interacting with
       return (interacting = false);
     }
 
     interacting = true;
 
-    if (e.type === "touchmove") {
+    if (e.type === "touchmove") {//checks if event type is touchmove, if true then interaction is happening via touch event
       e.clientX = e.touches[0].clientX;
       e.clientY = e.touches[0].clientY;
     }
@@ -154,7 +154,7 @@
       $activeCard = thisCard;
       resetBaseOrientation();
       // @ts-ignore
-      gtag("event", "select_item", {
+      gtag("event", "select_item", {//google analytic stuff to track these params
         item_list_id: "cards_list",
         item_list_name: "Pokemon Cards",
         items: [
@@ -177,7 +177,7 @@
     $activeCard = undefined;
   };
 
-  const reposition = (e) => {
+  const reposition = (e) => {//makes sure reposition happens only when the card is active ensuring smoother user xp
     clearTimeout(repositionTimer);
     repositionTimer = setTimeout(() => {
       if ($activeCard && $activeCard === thisCard) {
@@ -186,7 +186,7 @@
     }, 300);
   };
 
-  const setCenter = () => {
+  const setCenter = () => {//makes sure active card is always centered
     const rect = thisCard.getBoundingClientRect(); // get element's size/position
     const view = document.documentElement; // get window/viewport size
 
