@@ -219,23 +219,23 @@
     interactEnd(null, delay);
   };
 
-  const retreat = () => {
+  const retreat = () => {//reset card state and init retreat effect
     springScale.set(1, { soft: true });
     springTranslate.set({ x: 0, y: 0 }, { soft: true });
     springRotateDelta.set({ x: 0, y: 0 }, { soft: true });
     interactEnd(null, 100);
   };
 
-  const reset = () => {
+  const reset = () => {//resets card state to start and appearance terminates and ongoing interaction
     interactEnd(null, 0);
     springScale.set(1, { hard: true });
-    springTranslate.set({ x: 0, y: 0 }, { hard: true });
+    springTranslate.set({ x: 0, y: 0 }, { hard: true });//hard true makes this instant
     springRotateDelta.set({ x: 0, y: 0 }, { hard: true });
     springRotate.set({ x: 0, y: 0 }, { hard: true });
   };
 
   $: {
-    if ($activeCard && $activeCard === thisCard) {
+    if ($activeCard && $activeCard === thisCard) {//makes sure when active card changes, it popovers, or else retreats
       popover();
       active = true;
     } else {
